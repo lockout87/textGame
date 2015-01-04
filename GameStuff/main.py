@@ -147,6 +147,8 @@ class COMMANDS():
     def __init__(self):
         self.commands       = {"go"     : self.go,
                                "attack" : self.attack,
+                               "lift"   : self.lift,
+                               "open"   : self.open,
                                "help"   : self.help,
                                }
 
@@ -181,6 +183,30 @@ class COMMANDS():
                     print "You attack the {0} with your {1}.".format(key, state.player.currentWeapon)
                 else:
                     print "You cannot attack the {0}".format(key)
+
+    def lift(self, text, state):
+        """
+        Allows you to lift something.
+        """
+        text = text.replace('lift', '', 1)
+        for key, value in state.currentRoom.objects.iteritems():
+            if text.startswith(key.lower()):
+                if value.liftAble():
+                    print "You lift the {0}.".format(key)
+            else:
+                print "You cannot lift the {0}."
+
+    def open(self, text, state):
+        """
+        Allows you to lift something.
+        """
+        text = text.replace('lift', '', 1)
+        for key, value in state.currentRoom.objects.iteritems():
+            if text.startswith(key.lower()):
+                if value.liftAble():
+                    print "You lift the {0}.".format(key)
+                else:
+                    print "You cannot lift the {0}.".format(key)
 
 class STATE():
     def __init__(self, currentRoom, player):
